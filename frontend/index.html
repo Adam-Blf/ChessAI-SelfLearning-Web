@@ -118,6 +118,46 @@
                     </div>
                 </div>
 
+                <div class="card training-card">
+                    <div class="card-header">
+                        <h3>Auto-Training</h3>
+                        <div class="training-indicator" style="display: none;"></div>
+                    </div>
+                    <div class="card-body">
+                        <p class="training-description">Let two AIs play against each other to gather training data and improve the neural network.</p>
+                        
+                        <div class="training-stats">
+                            <div class="stat-row">
+                                <div class="stat-box">
+                                    <span class="stat-number" id="gamesPlayed">0</span>
+                                    <span class="stat-name">Games</span>
+                                </div>
+                                <div class="stat-box">
+                                    <span class="stat-number" id="whiteWins">0</span>
+                                    <span class="stat-name">White Wins</span>
+                                    <span class="stat-percent" id="whiteWinRate">0%</span>
+                                </div>
+                            </div>
+                            <div class="stat-row">
+                                <div class="stat-box">
+                                    <span class="stat-number" id="blackWins">0</span>
+                                    <span class="stat-name">Black Wins</span>
+                                    <span class="stat-percent" id="blackWinRate">0%</span>
+                                </div>
+                                <div class="stat-box">
+                                    <span class="stat-number" id="draws">0</span>
+                                    <span class="stat-name">Draws</span>
+                                    <span class="stat-percent" id="drawRate">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button id="trainingBtn" class="training-button">
+                            🤖 Start Auto-Training
+                        </button>
+                    </div>
+                </div>
+
                 <button id="resetBtn" class="reset-button">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

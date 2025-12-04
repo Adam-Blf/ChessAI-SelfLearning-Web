@@ -10,6 +10,13 @@ var $status = $('#status');
 var $fen = $('#fen');
 var $eloRange = $('#eloRange');
 var $eloValue = $('#eloValue');
+var autoTrainingMode = false;
+var trainingStats = {
+    gamesPlayed: 0,
+    whiteWins: 0,
+    blackWins: 0,
+    draws: 0
+};
 
 // --- ELO Slider ---
 $eloRange.on('input', function () {
@@ -60,10 +67,43 @@ function updateStatus() {
     // Checkmate?
     if (game.in_checkmate()) {
         status = 'Game over, ' + moveColor + ' is in checkmate.';
+        if (autoTrainingMode) {
+            // Update stats
+            if (moveColor === 'White') {
+                trainingStats.blackWins++;
+            } else {
+                trainingStats.whiteWins++;
+            }
+            trainingStats.gamesPlayed++;
+            updateTrainingStats();
+            // Start new game after a short delay
+            setTimeout(() => {
+                game.reset();
+                board.start();
+                updateStatus();
+                if (autoTrainingMode) {
+                    makeAIMove(); // Start next game
+                }
+            }, 1000);
+        }
     }
     // Draw?
     else if (game.in_draw()) {
         status = 'Game over, drawn position';
+        if (autoTrainingMode) {
+            trainingStats.draws++;
+            trainingStats.gamesPlayed++;
+            updateTrainingStats();
+            // Start new game
+            setTimeout(() => {
+                game.reset();
+                board.start();
+                updateStatus();
+                if (autoTrainingMode) {
+                    makeAIMove();
+                }
+            }, 1000);
+        }
     }
     // Game still on
     else {
@@ -109,6 +149,11 @@ async function makeAIMove() {
             game.move(data.move, { sloppy: true });
             board.position(game.fen());
             updateStatus();
+            
+            // If in auto-training mode, continue playing
+            if (autoTrainingMode && !game.game_over()) {
+                setTimeout(makeAIMove, 500);
+            }
         } else {
             console.error("No move returned from AI");
             $status.html("AI failed to return a move.");
@@ -117,6 +162,56 @@ async function makeAIMove() {
     } catch (error) {
         console.error("Error fetching AI move:", error);
         $status.html("Error connecting to AI Server.");
+    }
+}
+
+// --- Auto Training Functions ---
+function startAutoTraining() {
+    autoTrainingMode = true;
+    $('#trainingBtn').text('⏸️ Stop Training').addClass('training-active');
+    $('#resetBtn').prop('disabled', true);
+    $eloRange.prop('disabled', true);
+    board.draggable = false;
+    
+    // Reset stats
+    trainingStats = {
+        gamesPlayed: 0,
+        whiteWins: 0,
+        blackWins: 0,
+        draws: 0
+    };
+    updateTrainingStats();
+    
+    // Start first game
+    game.reset();
+    board.start();
+    updateStatus();
+    makeAIMove();
+}
+
+function stopAutoTraining() {
+    autoTrainingMode = false;
+    $('#trainingBtn').text('🤖 Start Auto-Training').removeClass('training-active');
+    $('#resetBtn').prop('disabled', false);
+    $eloRange.prop('disabled', false);
+    board.draggable = true;
+}
+
+function updateTrainingStats() {
+    $('#gamesPlayed').text(trainingStats.gamesPlayed);
+    $('#whiteWins').text(trainingStats.whiteWins);
+    $('#blackWins').text(trainingStats.blackWins);
+    $('#draws').text(trainingStats.draws);
+    
+    // Calculate win rates
+    if (trainingStats.gamesPlayed > 0) {
+        const whiteWinRate = ((trainingStats.whiteWins / trainingStats.gamesPlayed) * 100).toFixed(1);
+        const blackWinRate = ((trainingStats.blackWins / trainingStats.gamesPlayed) * 100).toFixed(1);
+        const drawRate = ((trainingStats.draws / trainingStats.gamesPlayed) * 100).toFixed(1);
+        
+        $('#whiteWinRate').text(whiteWinRate + '%');
+        $('#blackWinRate').text(blackWinRate + '%');
+        $('#drawRate').text(drawRate + '%');
     }
 }
 
@@ -137,4 +232,13 @@ $('#resetBtn').on('click', function () {
     game.reset();
     board.start();
     updateStatus();
+});
+
+// Training Button
+$('#trainingBtn').on('click', function () {
+    if (autoTrainingMode) {
+        stopAutoTraining();
+    } else {
+        startAutoTraining();
+    }
 });
