@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chess AI - Self Learning</title>
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <!-- CSS Dependencies -->
     <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css"
         integrity="sha384-q94+BZtLrkL1/ohfjR8c6L+A6qzNH9R2hBLwyoAfu3i/WCvQjzL2RQJ3uNHDISdU" crossorigin="anonymous">
@@ -24,34 +29,104 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1>Chess AI - Self Learning</h1>
-
-        <div class="game-area">
-            <div id="myBoard" style="width: 400px"></div>
-
-            <div class="controls">
-                <div class="status-box">
-                    <h3>Status</h3>
-                    <div id="status">White to move</div>
-                    <div id="fen" style="font-size: 0.8em; color: #666; margin-top: 5px; word-break: break-all;"></div>
-                </div>
-
-                <div class="settings-box">
-                    <h3>AI Settings</h3>
-                    <label for="eloRange">Target ELO: <span id="eloValue">1500</span></label>
-                    <input type="range" id="eloRange" name="eloRange" min="800" max="2500" value="1500" step="50">
-                    <p class="small-text">
-                        < 1000: Random/Weak<br>
-                            1500: Medium Depth<br>
-                            > 2000: Max Strength
-                    </p>
-                </div>
-
-                <button id="resetBtn">New Game</button>
+    <div class="background-animation">
+        <div class="chess-pattern"></div>
+    </div>
+    
+    <header class="header">
+        <div class="logo">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L4 7V17L12 22L20 17V7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 12L12 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span>Chess AI</span>
+        </div>
+        <div class="header-stats">
+            <div class="stat-item">
+                <span class="stat-label">Neural Network</span>
+                <span class="stat-value">Active</span>
             </div>
         </div>
-    </div>
+    </header>
+
+    <main class="main-container">
+        <div class="game-section">
+            <div class="board-wrapper">
+                <div class="board-container">
+                    <div id="myBoard"></div>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="card status-card">
+                    <div class="card-header">
+                        <h3>Game Status</h3>
+                        <div class="status-indicator"></div>
+                    </div>
+                    <div class="card-body">
+                        <div class="status-info">
+                            <span class="status-label">Turn</span>
+                            <div id="status" class="status-text">White to move</div>
+                        </div>
+                        <div class="fen-display">
+                            <span class="fen-label">Position (FEN)</span>
+                            <div id="fen" class="fen-text"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card settings-card">
+                    <div class="card-header">
+                        <h3>AI Configuration</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="elo-control">
+                            <div class="elo-header">
+                                <span class="elo-label">Target ELO</span>
+                                <div class="elo-badge" id="eloValue">1500</div>
+                            </div>
+                            <input type="range" id="eloRange" class="elo-slider" min="800" max="2500" value="1500" step="50">
+                            <div class="elo-scale">
+                                <span>Beginner (800)</span>
+                                <span>Master (2500)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="difficulty-info">
+                            <div class="difficulty-item">
+                                <div class="difficulty-icon">🎯</div>
+                                <div class="difficulty-content">
+                                    <strong>800-1200</strong>
+                                    <span>Learning Mode</span>
+                                </div>
+                            </div>
+                            <div class="difficulty-item">
+                                <div class="difficulty-icon">⚡</div>
+                                <div class="difficulty-content">
+                                    <strong>1200-1800</strong>
+                                    <span>Intermediate</span>
+                                </div>
+                            </div>
+                            <div class="difficulty-item">
+                                <div class="difficulty-icon">👑</div>
+                                <div class="difficulty-content">
+                                    <strong>1800-2500</strong>
+                                    <span>Advanced</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="resetBtn" class="reset-button">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    New Game
+                </button>
+            </div>
+        </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
