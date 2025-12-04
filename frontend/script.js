@@ -1,6 +1,6 @@
 // --- Configuration ---
-// CHANGE THIS URL TO YOUR RENDER BACKEND URL IN PRODUCTION
-const API_URL = "http://localhost:5000";
+// The backend URL will be injected by Vercel. Fallback for local development.
+const API_URL = process.env.API_URL || "http://localhost:5000";
 // Example: const API_URL = "https://my-chess-ai.onrender.com";
 
 // --- Game State ---
