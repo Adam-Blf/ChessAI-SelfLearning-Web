@@ -44,3 +44,10 @@ This project is split into two parts for deployment:
     ```
 2.  **Frontend**:
     Open `frontend/index.html` in your browser.
+
+
+---
+
+<p align="center">
+  <sub>Par <a href="https://adam.beloucif.com">Adam Beloucif</a> · Data Engineer & Fullstack Developer · <a href="https://github.com/Adam-Blf">GitHub</a></sub>
+</p>
