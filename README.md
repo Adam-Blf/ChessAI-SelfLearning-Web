@@ -1,4 +1,19 @@
-# Deployment Guide: Chess AI Self-Learning Web
+# Chess AI Self-Learning Web
+
+![Status](https://img.shields.io/badge/status-active-brightgreen)
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-000000?logo=flask&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
+![Vercel](https://img.shields.io/badge/frontend-Vercel-000?logo=vercel&logoColor=white)
+![Render](https://img.shields.io/badge/backend-Render-46E3B7?logo=render&logoColor=white)
+
+Jeu d'echecs avec IA auto-apprenante dans le navigateur, algorithmes minimax et deep learning cote Flask.
+
+**Live** · https://chess-ai-self-learning-web.vercel.app
+
+---
+
+## Deployment Guide
 
 This project is split into two parts for deployment:
 1.  **Backend (`/backend`)**: Python Flask app -> Deploy to **Render**.
