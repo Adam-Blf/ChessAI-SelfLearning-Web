@@ -18,6 +18,27 @@ Jeu d'echecs avec IA auto-apprenante dans le navigateur, algorithmes minimax et 
 
 ---
 
+## Architecture
+
+```mermaid
+flowchart TB
+    Front["Frontend statique<br/>index.html · script.js · échiquier"]
+    API["API Flask<br/>routes /move · /ping · CORS"]
+    Engine["ChessEngine<br/>minimax alpha-beta + python-chess"]
+    Net["ChessNet PyTorch<br/>évaluation de position"]
+    Trainer["SelfTrainer<br/>auto-apprentissage en arrière-plan"]
+    Model["model.pth<br/>poids du réseau"]
+
+    Front -->|"POST /move (FEN, elo)"| API
+    API --> Engine
+    Engine --> Net
+    Trainer --> Net
+    Net --> Model
+    Trainer --> Model
+```
+
+Frontend déployé sur Vercel, backend Flask sur Render.
+
 ## Deployment Guide
 
 This project is split into two parts for deployment:
