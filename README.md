@@ -14,7 +14,7 @@
 
 Jeu d'echecs avec IA auto-apprenante dans le navigateur, algorithmes minimax et deep learning cote Flask.
 
-**Live** · https://chess-ai-self-learning-web.vercel.app
+**Live** - https://chess-ai-self-learning-web.vercel.app
 
 ---
 
@@ -22,8 +22,8 @@ Jeu d'echecs avec IA auto-apprenante dans le navigateur, algorithmes minimax et 
 
 ```mermaid
 flowchart TB
-    Front["Frontend statique<br/>index.html · script.js · échiquier"]
-    API["API Flask<br/>routes /move · /ping · CORS"]
+    Front["Frontend statique<br/>index.html - script.js - échiquier"]
+    API["API Flask<br/>routes /move - /ping - CORS"]
     Engine["ChessEngine<br/>minimax alpha-beta + python-chess"]
     Net["ChessNet PyTorch<br/>évaluation de position"]
     Trainer["SelfTrainer<br/>auto-apprentissage en arrière-plan"]
@@ -90,7 +90,7 @@ This project is split into two parts for deployment:
 ---
 
 <p align="center">
-  <sub>Par <a href="https://adam.beloucif.com">Adam Beloucif</a> · Data Engineer & Fullstack Developer · <a href="https://github.com/Adam-Blf">GitHub</a> · <a href="https://www.linkedin.com/in/adambeloucif/">LinkedIn</a></sub>
+  <sub>Par <a href="https://adam.beloucif.com">Adam Beloucif</a> - Data Engineer & Fullstack Developer - <a href="https://github.com/Adam-Blf">GitHub</a> - <a href="https://www.linkedin.com/in/adambeloucif/">LinkedIn</a></sub>
 </p>
 
 
